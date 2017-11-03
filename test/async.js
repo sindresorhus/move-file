@@ -28,20 +28,6 @@ test.serial('move a file across devices', async t => {
 	fs.rename.restore();
 });
 
-test.serial('move a file across devices using fallback', async t => {
-	const exdevError = new Error();
-	exdevError.code = 'EXDEV';
-	fs.rename = sinon.stub(fs, 'rename').throws(exdevError);
-	fs.access = sinon.stub(fs, 'access').throws(new Error());
-
-	const destination = tempy.file();
-	await m(tempWrite.sync(fixture), destination);
-	t.is(fs.readFileSync(destination, 'utf8'), fixture);
-
-	fs.rename.restore();
-	fs.access.restore();
-});
-
 test('overwrite option', async t => {
 	await t.throws(
 		m(tempWrite.sync('x'), tempWrite.sync('y'), {overwrite: false}),

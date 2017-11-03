@@ -2,7 +2,6 @@
 const util = require('util');
 const path = require('path');
 const fs = require('fs');
-const childProcess = require('child_process');
 const cpFile = require('cp-file');
 const pathExists = require('path-exists');
 const makeDir = require('make-dir');
@@ -18,19 +17,16 @@ module.exports = async (source, destination, options) => {
 		throw new Error('Destination file exists');
 	}
 
+	await makeDir(path.dirname(destination));
+
 	try {
 		await util.promisify(fs.rename)(source, destination);
 	} catch (err) {
 		if (err.code === 'EXDEV') {
-			// We prefer `mv` if it exists as it's faster
-			try {
-				await util.promisify(fs.access)('/bin/mv', fs.constants.X_OK);
-				await makeDir(path.dirname(destination));
-				await util.promisify(childProcess.execFile)('/bin/mv', [source, destination]);
-			} catch (err) {
-				await cpFile(source, destination);
-				await util.promisify(fs.unlink)(source);
-			}
+			// TODO: Remove this when Node.js 10 is target
+			const copy = fs.copyFile ? util.promisify(fs.copyFile) : cpFile;
+			await copy(source, destination);
+			await util.promisify(fs.unlink)(source);
 		} else {
 			throw err;
 		}
@@ -48,18 +44,16 @@ module.exports.sync = (source, destination, options) => {
 		throw new Error('Destination file exists');
 	}
 
+	makeDir.sync(path.dirname(destination));
+
 	try {
 		fs.renameSync(source, destination);
 	} catch (err) {
 		if (err.code === 'EXDEV') {
-			try {
-				fs.accessSync('/bin/mv', fs.constants.X_OK);
-				makeDir.sync(path.dirname(destination));
-				childProcess.execFileSync('/bin/mv', [source, destination]);
-			} catch (err) {
-				cpFile.sync(source, destination);
-				fs.unlinkSync(source);
-			}
+			// TODO: Remove this when Node.js 10 is target
+			const copy = fs.copyFileSync || cpFile.sync;
+			copy(source, destination);
+			fs.unlinkSync(source);
 		} else {
 			throw err;
 		}
