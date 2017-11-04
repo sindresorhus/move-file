@@ -19,9 +19,7 @@ module.exports = async (source, destination, options) => {
 
 	await makeDir(path.dirname(destination));
 
-	try {
-		await util.promisify(fs.rename)(source, destination);
-	} catch (err) {
+	util.promisify(fs.rename)(source, destination).catch(async err => {
 		if (err.code === 'EXDEV') {
 			// TODO: Remove this when Node.js 10 is target
 			const copy = fs.copyFile ? util.promisify(fs.copyFile) : cpFile;
@@ -30,7 +28,7 @@ module.exports = async (source, destination, options) => {
 		} else {
 			throw err;
 		}
-	}
+	});
 };
 
 module.exports.sync = (source, destination, options) => {
