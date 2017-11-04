@@ -26,7 +26,7 @@ module.exports = async (source, destination, options) => {
 			// TODO: Remove this when Node.js 10 is target
 			const copy = fs.copyFile ? util.promisify(fs.copyFile) : cpFile;
 			await copy(source, destination);
-			await util.promisify(fs.unlink)(source);
+			fs.unlink(source);
 		} else {
 			throw err;
 		}
