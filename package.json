@@ -13,10 +13,11 @@
 		"node": ">=8"
 	},
 	"scripts": {
-		"test": "xo && ava"
+		"test": "xo && ava && tsd-check"
 	},
 	"files": [
-		"index.js"
+		"index.js",
+		"index.d.ts"
 	],
 	"keywords": [
 		"move",
@@ -40,10 +41,11 @@
 		"path-exists": "^3.0.0"
 	},
 	"devDependencies": {
-		"ava": "*",
+		"ava": "^1.2.1",
 		"sinon": "^4.1.0",
 		"temp-write": "^3.3.0",
 		"tempy": "^0.2.1",
-		"xo": "*"
+		"tsd-check": "^0.3.0",
+		"xo": "^0.24.0"
 	}
 }
