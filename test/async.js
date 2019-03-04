@@ -31,6 +31,6 @@ test.serial('move a file across devices', async t => {
 test('overwrite option', async t => {
 	await t.throwsAsync(
 		moveFile(tempWrite.sync('x'), tempWrite.sync('y'), {overwrite: false}),
-		/Destination file exists/
+		/The destination file exists/
 	);
 });

@@ -12,7 +12,7 @@ export interface Options {
  *
  * @param source - File you want to move.
  * @param destination - Where you want the file moved.
- * @returns A `Promise`.
+ * @returns A `Promise` that resolves when the file has been moved.
  */
 export default function moveFile(
 	source: string,

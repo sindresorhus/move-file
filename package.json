@@ -36,13 +36,13 @@
 		"partitions"
 	],
 	"dependencies": {
-		"cp-file": "^5.0.0",
-		"make-dir": "^1.1.0",
+		"cp-file": "^6.0.0",
+		"make-dir": "^2.1.0",
 		"path-exists": "^3.0.0"
 	},
 	"devDependencies": {
 		"ava": "^1.2.1",
-		"sinon": "^4.1.0",
+		"sinon": "^7.2.6",
 		"temp-write": "^3.3.0",
 		"tempy": "^0.2.1",
 		"tsd-check": "^0.3.0",

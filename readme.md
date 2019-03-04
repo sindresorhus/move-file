@@ -27,7 +27,7 @@ const moveFile = require('move-file');
 
 (async () => {
 	await moveFile('source/unicorn.png', 'destination/unicorn.png');
-	console.log('File moved');
+	console.log('The file has been moved');
 })();
 ```
 
@@ -36,7 +36,7 @@ const moveFile = require('move-file');
 
 ### moveFile(source, destination, [options])
 
-Returns a `Promise`.
+Returns a `Promise` that resolves when the file has been moved.
 
 ### moveFile.sync(source, destination, [options])
 

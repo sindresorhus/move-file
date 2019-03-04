@@ -33,5 +33,5 @@ test('move a file across devices', t => {
 test('overwrite option', t => {
 	t.throws(() => {
 		moveFile.sync(tempWrite.sync('x'), tempWrite.sync('y'), {overwrite: false});
-	}, /Destination file exists/);
+	}, /The destination file exists/);
 });

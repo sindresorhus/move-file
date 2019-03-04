@@ -11,12 +11,16 @@ const moveFile = async (source, destination, options) => {
 		throw new TypeError('`source` and `destination` file required');
 	}
 
-	options = {overwrite: true, ...options};
+	options = {
+		overwrite: true,
+		...options
+	};
 
 	if (!options.overwrite && await pathExists(destination)) {
-		throw new Error('Destination file exists');
+		throw new Error(`The destination file exists: ${destination}`);
 	}
 
+	// TODO: Use the native `fs.mkdir` `recursive` option instead when targeting Node.js 10
 	await makeDir(path.dirname(destination));
 
 	try {
@@ -41,10 +45,13 @@ module.exports.sync = (source, destination, options) => {
 		throw new TypeError('`source` and `destination` file required');
 	}
 
-	options = {overwrite: true, ...options};
+	options = {
+		overwrite: true,
+		...options
+	};
 
 	if (!options.overwrite && fs.existsSync(destination)) {
-		throw new Error('Destination file exists');
+		throw new Error(`The destination file exists: ${destination}`);
 	}
 
 	makeDir.sync(path.dirname(destination));
