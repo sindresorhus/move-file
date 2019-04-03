@@ -1,5 +1,5 @@
-import {expectType} from 'tsd-check';
-import moveFile, {sync as moveFileSync} from '.';
+import {expectType} from 'tsd';
+import moveFile = require('.');
 
 expectType<Promise<void>>(
 	moveFile('source/unicorn.png', 'destination/unicorn.png')
@@ -7,9 +7,11 @@ expectType<Promise<void>>(
 expectType<Promise<void>>(
 	moveFile('source/unicorn.png', 'destination/unicorn.png', {overwrite: false})
 );
-expectType<void>(moveFileSync('source/unicorn.png', 'destination/unicorn.png'));
 expectType<void>(
-	moveFileSync('source/unicorn.png', 'destination/unicorn.png', {
+	moveFile.sync('source/unicorn.png', 'destination/unicorn.png')
+);
+expectType<void>(
+	moveFile.sync('source/unicorn.png', 'destination/unicorn.png', {
 		overwrite: false
 	})
 );
