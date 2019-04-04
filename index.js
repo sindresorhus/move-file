@@ -38,6 +38,7 @@ const moveFile = async (source, destination, options) => {
 };
 
 module.exports = moveFile;
+// TODO: Remove this for the next major release
 module.exports.default = moveFile;
 
 module.exports.sync = (source, destination, options) => {
