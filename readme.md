@@ -34,11 +34,11 @@ const moveFile = require('move-file');
 
 ## API
 
-### moveFile(source, destination, [options])
+### moveFile(source, destination, options?)
 
 Returns a `Promise` that resolves when the file has been moved.
 
-### moveFile.sync(source, destination, [options])
+### moveFile.sync(source, destination, options?)
 
 #### source
 
@@ -54,7 +54,7 @@ Where you want the file moved.
 
 #### options
 
-Type: `Object`
+Type: `object`
 
 ##### overwrite
 
@@ -66,11 +66,7 @@ Overwrite existing destination file.
 
 ## Related
 
+- [move-file-cli](https://github.com/sindresorhus/move-file-cli) - CLI for this module
 - [cp-file](https://github.com/sindresorhus/cp-file) - Copy a file
 - [cpy](https://github.com/sindresorhus/cpy) - Copy files
 - [make-dir](https://github.com/sindresorhus/make-dir) - Make a directory and its parents if needed
-
-
-## License
-
-MIT © [Sindre Sorhus](https://sindresorhus.com)
