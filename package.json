@@ -10,7 +10,7 @@
 		"url": "sindresorhus.com"
 	},
 	"engines": {
-		"node": ">=8"
+		"node": ">=10"
 	},
 	"scripts": {
 		"test": "xo && ava && tsd"
@@ -36,9 +36,7 @@
 		"partitions"
 	],
 	"dependencies": {
-		"cp-file": "^6.1.0",
-		"make-dir": "^3.0.0",
-		"path-exists": "^3.0.0"
+		"path-exists": "^4.0.0"
 	},
 	"devDependencies": {
 		"ava": "^1.4.1",
