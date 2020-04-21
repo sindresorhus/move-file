@@ -1,9 +1,8 @@
-# move-file [![Build Status](https://travis-ci.org/sindresorhus/move-file.svg?branch=master)](https://travis-ci.org/sindresorhus/move-file)
+# move-file [![Build Status](https://travis-ci.com/sindresorhus/move-file.svg?branch=master)](https://travis-ci.com/sindresorhus/move-file)
 
 > Move a file
 
 The built-in [`fs.rename()`](https://nodejs.org/api/fs.html#fs_fs_rename_oldpath_newpath_callback) is just a JavaScript wrapper for the C `rename(2)` function, which doesn't support moving files across partitions or devices. This module is what you would have expected `fs.rename()` to be.
-
 
 ## Highlights
 
@@ -12,13 +11,11 @@ The built-in [`fs.rename()`](https://nodejs.org/api/fs.html#fs_fs_rename_oldpath
 - Optionally prevent overwriting an existing file.
 - Creates non-existent destination directories for you.
 
-
 ## Install
 
 ```
 $ npm install move-file
 ```
-
 
 ## Usage
 
@@ -30,7 +27,6 @@ const moveFile = require('move-file');
 	console.log('The file has been moved');
 })();
 ```
-
 
 ## API
 
@@ -58,11 +54,10 @@ Type: `object`
 
 ##### overwrite
 
-Type: `boolean`<br>
+Type: `boolean`\
 Default: `true`
 
 Overwrite existing destination file.
-
 
 ## Related
 
