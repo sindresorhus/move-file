@@ -36,9 +36,6 @@ declare const moveFile: {
 	@param destination - Where you want the file moved.
 	*/
 	sync(source: string, destination: string, options?: moveFile.Options): void;
-
-	// TODO: Remove this for the next major release
-	default: typeof moveFile;
 };
 
 export = moveFile;
