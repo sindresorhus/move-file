@@ -1,4 +1,4 @@
-# move-file [![Build Status](https://travis-ci.com/sindresorhus/move-file.svg?branch=master)](https://travis-ci.com/sindresorhus/move-file)
+# move-file
 
 > Move a file
 
