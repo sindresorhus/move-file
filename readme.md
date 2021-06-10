@@ -59,6 +59,13 @@ Default: `true`
 
 Overwrite existing destination file.
 
+##### directoryMode
+
+Type: `number` | `string`\
+Default: `0o777`
+
+Permissions for created directories.
+
 ## Related
 
 - [move-file-cli](https://github.com/sindresorhus/move-file-cli) - CLI for this module
