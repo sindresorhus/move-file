@@ -61,7 +61,7 @@ Overwrite existing destination file.
 
 ##### directoryMode
 
-Type: `number` | `string`\
+Type: `number`\
 Default: `0o777`
 
 Permissions for created directories.
