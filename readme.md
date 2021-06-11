@@ -64,7 +64,7 @@ Overwrite existing destination file.
 Type: `number`\
 Default: `0o777`
 
-[Permissions](https://en.wikipedia.org/wiki/File-system_permissions#Numeric_notation) for created directories.
+[Permissions](https://en.wikipedia.org/wiki/File-system_permissions#Numeric_notation) for created directories. Not supported on Windows.
 
 ## Related
 
