@@ -1,6 +1,6 @@
 {
 	"name": "move-file",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"description": "Move a file - Even works across devices",
 	"license": "MIT",
 	"repository": "sindresorhus/move-file",
