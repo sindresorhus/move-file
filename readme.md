@@ -59,6 +59,13 @@ Default: `true`
 
 Overwrite existing destination file.
 
+##### directoryMode
+
+Type: `number`\
+Default: `0o777`
+
+[Permissions](https://en.wikipedia.org/wiki/File-system_permissions#Numeric_notation) for created directories. Not supported on Windows.
+
 ## Related
 
 - [move-file-cli](https://github.com/sindresorhus/move-file-cli) - CLI for this module

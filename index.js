@@ -19,7 +19,10 @@ module.exports = async (source, destination, options) => {
 		throw new Error(`The destination file exists: ${destination}`);
 	}
 
-	await fsP.mkdir(path.dirname(destination), {recursive: true});
+	await fsP.mkdir(path.dirname(destination), {
+		recursive: true,
+		mode: options.directoryMode
+	});
 
 	try {
 		await fsP.rename(source, destination);
@@ -47,7 +50,10 @@ module.exports.sync = (source, destination, options) => {
 		throw new Error(`The destination file exists: ${destination}`);
 	}
 
-	fs.mkdirSync(path.dirname(destination), {recursive: true});
+	fs.mkdirSync(path.dirname(destination), {
+		recursive: true,
+		mode: options.directoryMode
+	});
 
 	try {
 		fs.renameSync(source, destination);

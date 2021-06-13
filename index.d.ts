@@ -6,6 +6,13 @@ declare namespace moveFile {
 		@default true
 		*/
 		readonly overwrite?: boolean;
+
+		/**
+		[Permissions](https://en.wikipedia.org/wiki/File-system_permissions#Numeric_notation) for created directories.
+
+		@default 0o777
+		*/
+		readonly directoryMode?: number;
 	}
 }
 

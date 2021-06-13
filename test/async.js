@@ -34,3 +34,13 @@ test('overwrite option', async t => {
 		/The destination file exists/
 	);
 });
+
+test('directoryMode option', async t => {
+	const root = tempy.directory();
+	const directory = `${root}/dir`;
+	const destination = `${directory}/file`;
+	const directoryMode = 0o700;
+	await moveFile(tempWrite.sync(fixture), destination, {directoryMode});
+	const stat = fs.statSync(directory);
+	t.is(stat.mode & directoryMode, directoryMode);
+});
