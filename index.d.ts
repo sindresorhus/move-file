@@ -10,6 +10,8 @@ declare namespace moveFile {
 		/**
 		[Permissions](https://en.wikipedia.org/wiki/File-system_permissions#Numeric_notation) for created directories.
 
+		It has no effect on Windows.
+
 		@default 0o777
 		*/
 		readonly directoryMode?: number;
