@@ -1,4 +1,4 @@
-import {expectType} from 'tsd';
+import {expectError, expectType} from 'tsd';
 import moveFile = require('.');
 
 expectType<Promise<void>>(
@@ -12,8 +12,8 @@ expectType<Promise<void>>(
 		directoryMode: 0o700
 	})
 );
-expectType<Promise<void>>(
-	moveFile('source/unicorn.png', 'destination/unicorn.png', {
+expectError(
+	await moveFile('source/unicorn.png', 'destination/unicorn.png', {
 		directoryMode: '700'
 	})
 );
@@ -30,7 +30,7 @@ expectType<void>(
 		directoryMode: 0o700
 	})
 );
-expectType<void>(
+expectError(
 	moveFile.sync('source/unicorn.png', 'destination/unicorn.png', {
 		directoryMode: '700'
 	})

@@ -12,7 +12,7 @@ declare namespace moveFile {
 
 		@default 0o777
 		*/
-		readonly directoryMode?: number | string;
+		readonly directoryMode?: number;
 	}
 }
 
