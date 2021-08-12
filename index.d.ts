@@ -1,50 +1,50 @@
-declare namespace moveFile {
-	interface Options {
-		/**
-		Overwrite existing destination file.
+export interface Options {
+	/**
+	Overwrite existing destination file.
 
-		@default true
-		*/
-		readonly overwrite?: boolean;
+	@default true
+	*/
+	readonly overwrite?: boolean;
 
-		/**
-		[Permissions](https://en.wikipedia.org/wiki/File-system_permissions#Numeric_notation) for created directories.
+	/**
+	[Permissions](https://en.wikipedia.org/wiki/File-system_permissions#Numeric_notation) for created directories.
 
-		It has no effect on Windows.
+	It has no effect on Windows.
 
-		@default 0o777
-		*/
-		readonly directoryMode?: number;
-	}
+	@default 0o777
+	*/
+	readonly directoryMode?: number;
 }
 
-declare const moveFile: {
-	/**
-	Move a file.
+/**
+Move a file asynchronously.
 
-	@param source - File you want to move.
-	@param destination - Where you want the file moved.
-	@returns A `Promise` that resolves when the file has been moved.
+@param sourcePath - The file you want to move.
+@param destinationPath - Where you want the file moved.
+@returns A `Promise` that resolves when the file has been moved.
 
-	@example
-	```
-	import moveFile = require('move-file');
+@example
+```
+import {moveFile} from 'move-file';
 
-	(async () => {
-		await moveFile('source/unicorn.png', 'destination/unicorn.png');
-		console.log('The file has been moved');
-	})();
-	```
-	*/
-	(source: string, destination: string, options?: moveFile.Options): Promise<void>;
+await moveFile('source/unicorn.png', 'destination/unicorn.png');
+console.log('The file has been moved');
+```
+*/
+export function moveFile(sourcePath: string, destinationPath: string, options?: Options): Promise<void>;
 
-	/**
-	Move a file synchronously.
+/**
+Move a file synchronously.
 
-	@param source - File you want to move.
-	@param destination - Where you want the file moved.
-	*/
-	sync(source: string, destination: string, options?: moveFile.Options): void;
-};
+@param sourcePath - The file you want to move.
+@param destinationPath - Where you want the file moved.
 
-export = moveFile;
+@example
+```
+import {moveFileSync} from 'move-file';
+
+moveFileSync('source/unicorn.png', 'destination/unicorn.png');
+console.log('The file has been moved');
+```
+*/
+export function moveFileSync(sourcePath: string, destinationPath: string, options?: Options): void;

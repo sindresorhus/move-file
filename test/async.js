@@ -1,9 +1,9 @@
-import fs from 'fs';
+import fs from 'node:fs';
 import test from 'ava';
 import tempy from 'tempy';
 import tempWrite from 'temp-write';
 import sinon from 'sinon';
-import moveFile from '..';
+import {moveFile} from '../index.js';
 
 const fixture = '🦄';
 
@@ -18,7 +18,7 @@ test('move a file', async t => {
 });
 
 test.serial('move a file across devices', async t => {
-	const exdevError = new Error();
+	const exdevError = new Error('exdevError');
 	exdevError.code = 'EXDEV';
 	fs.rename = sinon.stub(fs, 'rename').throws(exdevError);
 
@@ -31,7 +31,9 @@ test.serial('move a file across devices', async t => {
 test('overwrite option', async t => {
 	await t.throwsAsync(
 		moveFile(tempWrite.sync('x'), tempWrite.sync('y'), {overwrite: false}),
-		/The destination file exists/
+		{
+			message: /The destination file exists/,
+		},
 	);
 });
 

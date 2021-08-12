@@ -20,29 +20,27 @@ $ npm install move-file
 ## Usage
 
 ```js
-const moveFile = require('move-file');
+import {moveFile} from 'move-file';
 
-(async () => {
-	await moveFile('source/unicorn.png', 'destination/unicorn.png');
-	console.log('The file has been moved');
-})();
+await moveFile('source/unicorn.png', 'destination/unicorn.png');
+console.log('The file has been moved');
 ```
 
 ## API
 
-### moveFile(source, destination, options?)
+### moveFile(sourcePath, destinationPath, options?)
 
 Returns a `Promise` that resolves when the file has been moved.
 
-### moveFile.sync(source, destination, options?)
+### moveFileSync(sourcePath, destinationPath, options?)
 
-#### source
+#### sourcePath
 
 Type: `string`
 
-File you want to move.
+The file you want to move.
 
-#### destination
+#### destinationPath
 
 Type: `string`
 
