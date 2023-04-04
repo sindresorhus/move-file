@@ -7,6 +7,15 @@ export interface Options {
 	readonly overwrite?: boolean;
 
 	/**
+	The working directory to find source files.
+
+	The source and destination path are relative to this.
+
+	@default process.cwd()
+	*/
+	readonly cwd?: string;
+
+	/**
 	[Permissions](https://en.wikipedia.org/wiki/File-system_permissions#Numeric_notation) for created directories.
 
 	It has no effect on Windows.
@@ -32,19 +41,3 @@ console.log('The file has been moved');
 ```
 */
 export function moveFile(sourcePath: string, destinationPath: string, options?: Options): Promise<void>;
-
-/**
-Move a file synchronously.
-
-@param sourcePath - The file you want to move.
-@param destinationPath - Where you want the file moved.
-
-@example
-```
-import {moveFileSync} from 'move-file';
-
-moveFileSync('source/unicorn.png', 'destination/unicorn.png');
-console.log('The file has been moved');
-```
-*/
-export function moveFileSync(sourcePath: string, destinationPath: string, options?: Options): void;

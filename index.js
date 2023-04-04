@@ -1,10 +1,25 @@
+import process from 'node:process';
 import path from 'node:path';
 import fs, {promises as fsP} from 'node:fs';
 import {pathExists} from 'path-exists';
 
-export async function moveFile(sourcePath, destinationPath, {overwrite = true, directoryMode} = {}) {
+const resolvePath = (cwd, sourcePath, destinationPath) => {
+	sourcePath = path.resolve(cwd, sourcePath);
+	destinationPath = path.resolve(cwd, destinationPath);
+
+	return {
+		sourcePath,
+		destinationPath,
+	};
+};
+
+export async function moveFile(sourcePath, destinationPath, {overwrite = true, cwd = process.cwd(), directoryMode} = {}) {
 	if (!sourcePath || !destinationPath) {
 		throw new TypeError('`sourcePath` and `destinationPath` required');
+	}
+
+	if (cwd) {
+		({sourcePath, destinationPath} = resolvePath(cwd, sourcePath, destinationPath));
 	}
 
 	if (!overwrite && await pathExists(destinationPath)) {
@@ -28,9 +43,13 @@ export async function moveFile(sourcePath, destinationPath, {overwrite = true, d
 	}
 }
 
-export function moveFileSync(sourcePath, destinationPath, {overwrite = true, directoryMode} = {}) {
+export function moveFileSync(sourcePath, destinationPath, {overwrite = true, cwd = process.cwd(), directoryMode} = {}) {
 	if (!sourcePath || !destinationPath) {
 		throw new TypeError('`sourcePath` and `destinationPath` required');
+	}
+
+	if (cwd) {
+		({sourcePath, destinationPath} = resolvePath(cwd, sourcePath, destinationPath));
 	}
 
 	if (!overwrite && fs.existsSync(destinationPath)) {

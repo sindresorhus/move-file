@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import path from 'node:path';
 import test from 'ava';
 import tempy from 'tempy';
 import tempWrite from 'temp-write';
@@ -35,6 +36,13 @@ test('overwrite option', async t => {
 			message: /The destination file exists/,
 		},
 	);
+});
+
+test('cwd option', async t => {
+	const destination = tempy.file();
+	await moveFile(tempWrite.sync(fixture), 'unicorn-dir/unicorn.txt', {cwd: destination});
+	const movedFiled = path.resolve(destination, 'unicorn-dir/unicorn.txt');
+	t.is(fs.readFileSync(movedFiled, 'utf8'), fixture);
 });
 
 test('directoryMode option', async t => {
