@@ -4,7 +4,7 @@ import test from 'ava';
 import tempy from 'tempy';
 import tempWrite from 'temp-write';
 import sinon from 'sinon';
-import {moveFile} from '../index.js';
+import {moveFile, renameFile} from '../index.js';
 
 const fixture = '🦄';
 
@@ -53,4 +53,11 @@ test('directoryMode option', async t => {
 	await moveFile(tempWrite.sync(fixture), destination, {directoryMode});
 	const stat = fs.statSync(directory);
 	t.is(stat.mode & directoryMode, directoryMode);
+});
+
+test('rename a file', async t => {
+	const dir = tempy.directory();
+	await renameFile(tempWrite.sync(fixture, 'unicorn.txt'), 'unicorns.txt', {cwd: dir});
+	const renamedFile = path.resolve(dir, 'unicorns.txt');
+	t.is(fs.readFileSync(renamedFile, 'utf8'), fixture);
 });

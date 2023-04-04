@@ -47,3 +47,50 @@ expectError(
 		directoryMode: '700',
 	}),
 );
+
+expectType<Promise<void>>(
+	renameFile('source/unicorn.png', 'source/unicorns.png'),
+);
+expectType<Promise<void>>(
+	renameFile('source/unicorn.png', 'source/unicorns.png', {
+		overwrite: false,
+	}),
+);
+expectType<Promise<void>>(
+	renameFile('unicorn.png', 'unicorns.png', {
+		cwd: 'source',
+	}),
+);
+expectType<Promise<void>>(
+	renameFile('source/unicorn.png', 'source/unicorns.png', {
+		directoryMode: 0o700,
+	}),
+);
+expectError(
+	await renameFile('source/unicorn.png', 'source/unicorns.png', {
+		directoryMode: '700',
+	}),
+);
+expectType<void>(
+	renameFileSync('source/unicorn.png', 'source/unicorns.png'),
+);
+expectType<void>(
+	renameFileSync('source/unicorn.png', 'source/unicorns.png', {
+		overwrite: false,
+	}),
+);
+expectType<void>(
+	renameFileSync('unicorn.png', 'unicorns.png', {
+		cwd: 'source',
+	}),
+);
+expectType<void>(
+	renameFileSync('source/unicorn.png', 'source/unicorns.png', {
+		directoryMode: 0o700,
+	}),
+);
+expectError(
+	renameFileSync('source/unicorn.png', 'source/unicorns.png', {
+		directoryMode: '700',
+	}),
+);

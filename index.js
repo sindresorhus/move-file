@@ -72,3 +72,11 @@ export function moveFileSync(sourcePath, destinationPath, {overwrite = true, cwd
 		}
 	}
 }
+
+export async function renameFile(source, destination, options) {
+	return moveFile(source, destination, options);
+}
+
+export function renameFileSync(source, destination, options) {
+	return moveFileSync(source, destination, options);
+}

@@ -4,7 +4,7 @@ import test from 'ava';
 import tempy from 'tempy';
 import tempWrite from 'temp-write';
 import sinon from 'sinon';
-import {moveFileSync} from '../index.js';
+import {moveFileSync, renameFileSync} from '../index.js';
 
 const fixture = '🦄';
 
@@ -39,7 +39,7 @@ test('overwrite option', t => {
 	});
 });
 
-test('cwd option', async t => {
+test('cwd option', t => {
 	const destination = tempy.file();
 	moveFileSync(tempWrite.sync(fixture), 'unicorn-dir/unicorn.txt', {cwd: destination});
 	const movedFiled = path.resolve(destination, 'unicorn-dir/unicorn.txt');
@@ -54,4 +54,11 @@ test('directoryMode option', t => {
 	moveFileSync(tempWrite.sync(fixture), destination, {directoryMode});
 	const stat = fs.statSync(directory);
 	t.is(stat.mode & directoryMode, directoryMode);
+});
+
+test('rename a file', t => {
+	const dir = tempy.directory();
+	renameFileSync(tempWrite.sync(fixture, 'unicorn.txt'), 'unicorns.txt', {cwd: dir});
+	const renamedFile = path.resolve(dir, 'unicorns.txt');
+	t.is(fs.readFileSync(renamedFile, 'utf8'), fixture);
 });
