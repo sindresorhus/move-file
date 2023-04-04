@@ -13,13 +13,25 @@ const resolvePath = (cwd, sourcePath, destinationPath) => {
 	};
 };
 
-export async function moveFile(sourcePath, destinationPath, {overwrite = true, cwd = process.cwd(), directoryMode} = {}) {
+const validatePathsExist = (sourcePath, destinationPath, suffix = 'Path') => {
 	if (!sourcePath || !destinationPath) {
-		throw new TypeError('`sourcePath` and `destinationPath` required');
+		throw new TypeError(`\`source${suffix}\` and \`destination${suffix}\` required`);
 	}
+};
 
+const validateSameDirectory = (source, destination) => {
+	if (path.dirname(source) !== path.dirname(destination)) {
+		throw new Error('`source` and `destination` must be in the same directory');
+	}
+};
+
+const _moveFile = async (sourcePath, destinationPath, {overwrite = true, cwd = process.cwd(), directoryMode, validateDirectory = false} = {}) => {
 	if (cwd) {
 		({sourcePath, destinationPath} = resolvePath(cwd, sourcePath, destinationPath));
+	}
+
+	if (validateDirectory) {
+		validateSameDirectory(sourcePath, destinationPath);
 	}
 
 	if (!overwrite && await pathExists(destinationPath)) {
@@ -30,7 +42,6 @@ export async function moveFile(sourcePath, destinationPath, {overwrite = true, c
 		recursive: true,
 		mode: directoryMode,
 	});
-
 	try {
 		await fsP.rename(sourcePath, destinationPath);
 	} catch (error) {
@@ -41,15 +52,15 @@ export async function moveFile(sourcePath, destinationPath, {overwrite = true, c
 			throw error;
 		}
 	}
-}
+};
 
-export function moveFileSync(sourcePath, destinationPath, {overwrite = true, cwd = process.cwd(), directoryMode} = {}) {
-	if (!sourcePath || !destinationPath) {
-		throw new TypeError('`sourcePath` and `destinationPath` required');
-	}
-
+const _moveFileSync = (sourcePath, destinationPath, {overwrite = true, cwd = process.cwd(), directoryMode, validateDirectory = false} = {}) => {
 	if (cwd) {
 		({sourcePath, destinationPath} = resolvePath(cwd, sourcePath, destinationPath));
+	}
+
+	if (validateDirectory) {
+		validateSameDirectory(sourcePath, destinationPath);
 	}
 
 	if (!overwrite && fs.existsSync(destinationPath)) {
@@ -71,12 +82,24 @@ export function moveFileSync(sourcePath, destinationPath, {overwrite = true, cwd
 			throw error;
 		}
 	}
+};
+
+export async function moveFile(sourcePath, destinationPath, options) {
+	validatePathsExist(sourcePath, destinationPath);
+	return _moveFile(sourcePath, destinationPath, options);
 }
 
-export async function renameFile(source, destination, options) {
-	return moveFile(source, destination, options);
+export function moveFileSync(sourcePath, destinationPath, options) {
+	validatePathsExist(sourcePath, destinationPath);
+	return _moveFileSync(sourcePath, destinationPath, options);
 }
 
-export function renameFileSync(source, destination, options) {
-	return moveFileSync(source, destination, options);
+export async function renameFile(source, destination, options = {}) {
+	validatePathsExist(source, destination, '');
+	return _moveFile(source, destination, {...options, validateDirectory: true});
+}
+
+export function renameFileSync(source, destination, options = {}) {
+	validatePathsExist(source, destination, '');
+	return _moveFileSync(source, destination, {...options, validateDirectory: true});
 }

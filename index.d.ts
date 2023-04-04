@@ -1,4 +1,4 @@
-export interface Options {
+export type Options = {
 	/**
 	Overwrite existing destination file.
 
@@ -23,7 +23,7 @@ export interface Options {
 	@default 0o777
 	*/
 	readonly directoryMode?: number;
-}
+};
 
 /**
 Move a file asynchronously.
