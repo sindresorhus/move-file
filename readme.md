@@ -13,8 +13,8 @@ The built-in [`fs.rename()`](https://nodejs.org/api/fs.html#fs_fs_rename_oldpath
 
 ## Install
 
-```
-$ npm install move-file
+```sh
+npm install move-file
 ```
 
 ## Usage
