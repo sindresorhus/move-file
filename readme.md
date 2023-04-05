@@ -50,12 +50,49 @@ Where you want the file moved.
 
 Type: `object`
 
+See [Options](#options-2).
+
+### renameFile(source, destination, options?)
+
+Returns a `Promise` that resolves when the file has been renamed. `source` and `destination` must be in the same directory.
+
+### renameFileSync(source, destination, options?)
+
+#### source
+
+Type: `string`
+
+The file you want to rename.
+
+#### destination
+
+Type: `string`
+
+What you want to rename the file to.
+
+#### options
+
+Type: `object`
+
+See [Options](#options-2).
+
+### Options
+
 ##### overwrite
 
 Type: `boolean`\
 Default: `true`
 
 Overwrite existing destination file.
+
+##### cwd
+
+Type: `string`\
+Default: `process.cwd()`
+
+The working directory to find source files.
+
+The source and destination path are relative to this.
 
 ##### directoryMode
 
