@@ -42,6 +42,7 @@ const _moveFile = async (sourcePath, destinationPath, {overwrite = true, cwd = p
 		recursive: true,
 		mode: directoryMode,
 	});
+
 	try {
 		await fsP.rename(sourcePath, destinationPath);
 	} catch (error) {
