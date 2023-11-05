@@ -106,6 +106,6 @@ It has no effect on Windows.
 ## Related
 
 - [move-file-cli](https://github.com/sindresorhus/move-file-cli) - CLI for this module
-- [cp-file](https://github.com/sindresorhus/cp-file) - Copy a file
+- [copy-file](https://github.com/sindresorhus/copy-file) - Copy a file
 - [cpy](https://github.com/sindresorhus/cpy) - Copy files
 - [make-dir](https://github.com/sindresorhus/make-dir) - Make a directory and its parents if needed
