@@ -47,7 +47,15 @@ const _moveFile = async (sourcePath, destinationPath, {overwrite = true, cwd = p
 		await fsP.rename(sourcePath, destinationPath);
 	} catch (error) {
 		if (error.code === 'EXDEV') {
-			await fsP.copyFile(sourcePath, destinationPath);
+			const stats = await fsP.lstat(sourcePath);
+			if (stats.isSymbolicLink()) {
+				// The `fs.copyFile` function dereferences symlinks, so we need to recreate it manually.
+				const target = await fsP.readlink(sourcePath);
+				await fsP.symlink(target, destinationPath);
+			} else {
+				await fsP.copyFile(sourcePath, destinationPath);
+			}
+
 			await fsP.unlink(sourcePath);
 		} else {
 			throw error;
@@ -77,7 +85,15 @@ const _moveFileSync = (sourcePath, destinationPath, {overwrite = true, cwd = pro
 		fs.renameSync(sourcePath, destinationPath);
 	} catch (error) {
 		if (error.code === 'EXDEV') {
-			fs.copyFileSync(sourcePath, destinationPath);
+			const stats = fs.lstatSync(sourcePath);
+			if (stats.isSymbolicLink()) {
+				// The `fs.copyFileSync` function dereferences symlinks, so we need to recreate it manually.
+				const target = fs.readlinkSync(sourcePath);
+				fs.symlinkSync(target, destinationPath);
+			} else {
+				fs.copyFileSync(sourcePath, destinationPath);
+			}
+
 			fs.unlinkSync(sourcePath);
 		} else {
 			throw error;

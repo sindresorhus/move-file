@@ -32,6 +32,48 @@ test('move a file across devices', t => {
 	fs.renameSync.restore();
 });
 
+test('move a symlink across devices', t => {
+	const exdevError = new Error('exdevError');
+	exdevError.code = 'EXDEV';
+	fs.renameSync = sinon.stub(fs, 'renameSync').throws(exdevError);
+
+	const directory = temporaryDirectory();
+	const target = path.join(directory, 'target');
+	const symlink = path.join(directory, 'symlink');
+	const destination = temporaryFile();
+
+	fs.writeFileSync(target, fixture);
+	fs.symlinkSync(target, symlink);
+
+	moveFileSync(symlink, destination);
+
+	t.true(fs.lstatSync(destination).isSymbolicLink());
+	t.is(fs.readlinkSync(destination), target);
+	t.false(fs.existsSync(symlink));
+
+	fs.renameSync.restore();
+});
+
+test('move a broken symlink across devices', t => {
+	const exdevError = new Error('exdevError');
+	exdevError.code = 'EXDEV';
+	fs.renameSync = sinon.stub(fs, 'renameSync').throws(exdevError);
+
+	const directory = temporaryDirectory();
+	const symlink = path.join(directory, 'symlink');
+	const destination = temporaryFile();
+
+	fs.symlinkSync('/nonexistent', symlink);
+
+	moveFileSync(symlink, destination);
+
+	t.true(fs.lstatSync(destination).isSymbolicLink());
+	t.is(fs.readlinkSync(destination), '/nonexistent');
+	t.false(fs.existsSync(symlink));
+
+	fs.renameSync.restore();
+});
+
 test('overwrite option', t => {
 	t.throws(
 		() => moveFileSync(tempWrite.sync('x'), tempWrite.sync('y'), {overwrite: false}),
