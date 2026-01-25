@@ -1,6 +1,6 @@
 {
 	"name": "move-file",
-	"version": "4.0.0",
+	"version": "4.1.0",
 	"description": "Move a file, directory, or symlink - Even works across devices",
 	"license": "MIT",
 	"repository": "sindresorhus/move-file",
