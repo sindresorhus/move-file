@@ -26,11 +26,11 @@ export type Options = {
 };
 
 /**
-Move a file asynchronously.
+Move a file, directory, or symlink asynchronously.
 
-@param sourcePath - The file you want to move.
-@param destinationPath - Where you want the file moved.
-@returns A `Promise` that resolves when the file has been moved.
+@param sourcePath - The file, directory, or symlink you want to move.
+@param destinationPath - Where you want it moved.
+@returns A `Promise` that resolves when the file, directory, or symlink has been moved.
 
 @example
 ```
@@ -43,10 +43,10 @@ console.log('The file has been moved');
 export function moveFile(sourcePath: string, destinationPath: string, options?: Options): Promise<void>;
 
 /**
-Move a file synchronously.
+Move a file, directory, or symlink synchronously.
 
-@param sourcePath - The file you want to move.
-@param destinationPath - Where you want the file moved.
+@param sourcePath - The file, directory, or symlink you want to move.
+@param destinationPath - Where you want it moved.
 
 @example
 ```

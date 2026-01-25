@@ -48,14 +48,13 @@ const _moveFile = async (sourcePath, destinationPath, {overwrite = true, cwd = p
 		if (error.code === 'EXDEV') {
 			const stats = await fsPromises.lstat(sourcePath);
 			if (stats.isSymbolicLink()) {
-				// The `fs.copyFile` function dereferences symlinks, so we need to recreate it manually.
 				const target = await fsPromises.readlink(sourcePath);
 				await fsPromises.symlink(target, destinationPath);
+				await fsPromises.unlink(sourcePath);
 			} else {
-				await fsPromises.copyFile(sourcePath, destinationPath);
+				await fsPromises.cp(sourcePath, destinationPath, {recursive: true, preserveTimestamps: true});
+				await fsPromises.rm(sourcePath, {recursive: true});
 			}
-
-			await fsPromises.unlink(sourcePath);
 		} else {
 			throw error;
 		}
@@ -86,14 +85,13 @@ const _moveFileSync = (sourcePath, destinationPath, {overwrite = true, cwd = pro
 		if (error.code === 'EXDEV') {
 			const stats = fs.lstatSync(sourcePath);
 			if (stats.isSymbolicLink()) {
-				// The `fs.copyFileSync` function dereferences symlinks, so we need to recreate it manually.
 				const target = fs.readlinkSync(sourcePath);
 				fs.symlinkSync(target, destinationPath);
+				fs.unlinkSync(sourcePath);
 			} else {
-				fs.copyFileSync(sourcePath, destinationPath);
+				fs.cpSync(sourcePath, destinationPath, {recursive: true, preserveTimestamps: true});
+				fs.rmSync(sourcePath, {recursive: true});
 			}
-
-			fs.unlinkSync(sourcePath);
 		} else {
 			throw error;
 		}

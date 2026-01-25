@@ -1,13 +1,13 @@
 # move-file
 
-> Move a file
+> Move a file, directory, or symlink
 
 The built-in [`fs.rename()`](https://nodejs.org/api/fs.html#fs_fs_rename_oldpath_newpath_callback) is just a JavaScript wrapper for the C `rename(2)` function, which doesn't support moving files across partitions or devices. This module is what you would have expected `fs.rename()` to be.
 
 ## Highlights
 
 - Promise API.
-- Supports moving a file across partitions and devices.
+- Supports moving a file, directory, or symlink across partitions and devices.
 - Optionally prevent overwriting an existing file.
 - Creates non-existent destination directories for you.
 
@@ -30,7 +30,7 @@ console.log('The file has been moved');
 
 ### moveFile(sourcePath, destinationPath, options?)
 
-Returns a `Promise` that resolves when the file has been moved.
+Returns a `Promise` that resolves when the file, directory, or symlink has been moved.
 
 ### moveFileSync(sourcePath, destinationPath, options?)
 
@@ -38,13 +38,13 @@ Returns a `Promise` that resolves when the file has been moved.
 
 Type: `string`
 
-The file you want to move.
+The file, directory, or symlink you want to move.
 
 #### destinationPath
 
 Type: `string`
 
-Where you want the file moved.
+Where you want it moved.
 
 #### options
 

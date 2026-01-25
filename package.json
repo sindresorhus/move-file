@@ -1,7 +1,7 @@
 {
 	"name": "move-file",
 	"version": "4.0.0",
-	"description": "Move a file - Even works across devices",
+	"description": "Move a file, directory, or symlink - Even works across devices",
 	"license": "MIT",
 	"repository": "sindresorhus/move-file",
 	"funding": "https://github.com/sponsors/sindresorhus",
@@ -29,16 +29,12 @@
 	"keywords": [
 		"move",
 		"file",
+		"directory",
+		"folder",
+		"symlink",
 		"mv",
 		"fs",
-		"stream",
 		"file-system",
-		"ncp",
-		"fast",
-		"quick",
-		"data",
-		"content",
-		"contents",
 		"devices",
 		"partitions"
 	],
