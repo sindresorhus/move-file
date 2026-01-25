@@ -84,8 +84,8 @@ test('overwrite option', t => {
 test('cwd option', t => {
 	const destination = temporaryFile();
 	moveFileSync(tempWrite.sync(fixture), 'unicorn-dir/unicorn.txt', {cwd: destination});
-	const movedFiled = path.resolve(destination, 'unicorn-dir/unicorn.txt');
-	t.is(fs.readFileSync(movedFiled, 'utf8'), fixture);
+	const movedFile = path.resolve(destination, 'unicorn-dir/unicorn.txt');
+	t.is(fs.readFileSync(movedFile, 'utf8'), fixture);
 });
 
 test('directoryMode option', t => {

@@ -1,7 +1,6 @@
 import process from 'node:process';
 import path from 'node:path';
-import fs, {promises as fsP} from 'node:fs';
-import {pathExists} from 'path-exists';
+import fs, {promises as fsPromises} from 'node:fs';
 
 const resolvePath = (cwd, sourcePath, destinationPath) => {
 	sourcePath = path.resolve(cwd, sourcePath);
@@ -34,29 +33,29 @@ const _moveFile = async (sourcePath, destinationPath, {overwrite = true, cwd = p
 		validateSameDirectory(sourcePath, destinationPath);
 	}
 
-	if (!overwrite && await pathExists(destinationPath)) {
+	if (!overwrite && fs.existsSync(destinationPath)) {
 		throw new Error(`The destination file exists: ${destinationPath}`);
 	}
 
-	await fsP.mkdir(path.dirname(destinationPath), {
+	await fsPromises.mkdir(path.dirname(destinationPath), {
 		recursive: true,
 		mode: directoryMode,
 	});
 
 	try {
-		await fsP.rename(sourcePath, destinationPath);
+		await fsPromises.rename(sourcePath, destinationPath);
 	} catch (error) {
 		if (error.code === 'EXDEV') {
-			const stats = await fsP.lstat(sourcePath);
+			const stats = await fsPromises.lstat(sourcePath);
 			if (stats.isSymbolicLink()) {
 				// The `fs.copyFile` function dereferences symlinks, so we need to recreate it manually.
-				const target = await fsP.readlink(sourcePath);
-				await fsP.symlink(target, destinationPath);
+				const target = await fsPromises.readlink(sourcePath);
+				await fsPromises.symlink(target, destinationPath);
 			} else {
-				await fsP.copyFile(sourcePath, destinationPath);
+				await fsPromises.copyFile(sourcePath, destinationPath);
 			}
 
-			await fsP.unlink(sourcePath);
+			await fsPromises.unlink(sourcePath);
 		} else {
 			throw error;
 		}
